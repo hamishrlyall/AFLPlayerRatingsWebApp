@@ -8,7 +8,7 @@
         }
         public int PlayerId { get; set; }
         public int PositionId { get; set; }
-        public Player Player { get; set; }
-        public Position Position { get; set; }
+        public required Player Player { get; set; }
+        public required Position Position { get; set; }
     }
 }

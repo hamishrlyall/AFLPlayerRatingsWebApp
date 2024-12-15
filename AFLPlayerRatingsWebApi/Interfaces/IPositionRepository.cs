@@ -6,6 +6,7 @@ namespace AFLPlayerRatingsWebApi.Interfaces
     {
         ICollection<Position> GetPositions( );
         Position GetPosition( int _Id );
+        ICollection<Position> GetPositionsBySearchValue( string _SearchValue );
         ICollection<Player> GetPlayersByPosition( int _Id );
         bool PositionExists( int  _Id );
         bool CreatePosition( Position _Position );

@@ -1,6 +1,7 @@
 ﻿using AFLPlayerRatingsWebApi.Data;
 using AFLPlayerRatingsWebApi.Interfaces;
 using AFLPlayerRatingsWebApi.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace AFLPlayerRatingsWebApi.Repository
 {
@@ -31,6 +32,11 @@ namespace AFLPlayerRatingsWebApi.Repository
             }
 
             return team;
+        }
+
+        public ICollection<Team> GetTeamsBySearchValue( string _SearchValue )
+        {
+            return DataContext.Teams.Where( x => x.Name.Contains( _SearchValue ) ).ToList( );
         }
 
         public ICollection<Player> GetPlayersFromATeam( int _TeamId )

@@ -13,7 +13,7 @@ namespace AFLPlayerRatingsWebApi.Helper
             CreateMap<Team, TeamDto>( );
             CreateMap<Reviewer, ReviewerDto>( );
             CreateMap<Review, ReviewDto>( );
-            CreateMap<PlayerDto, Player>( );
+            CreateMap<PlayerToCreateDto, Player>( );
             CreateMap<PositionDto, Position>( );
             CreateMap<TeamDto, Team>( );
             CreateMap<ReviewerDto, Reviewer>( );

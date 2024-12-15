@@ -19,9 +19,19 @@ namespace AFLPlayerRatingsWebApi.Repository
             return DataContext.Players.Any( p => p.Id == _PlayerId );
         }
 
-        public ICollection<Player> GetPlayers( )
+        public ICollection<Player> GetAllPlayers( )
         {
             return DataContext.Players.OrderBy( p => p.Id ).ToList( );
+        }
+
+        public ICollection<Player> GetPlayers( int _PageIndex, int _PageSize )
+        {
+            return DataContext.Players.Include( t => t.Team ).Skip( _PageIndex * _PageSize ).Take( _PageSize ).OrderBy( p => p.Id ).ToList( );
+        }
+
+        public int GetPlayerCount( )
+        {
+            return DataContext.Players.Count( );
         }
 
         public Player GetPlayer( int _Id )
@@ -59,29 +69,15 @@ namespace AFLPlayerRatingsWebApi.Repository
             return ( ( decimal ) reviews.Sum( r => r.Rating ) / reviews.Count( ) );
         }
 
-        public bool CreatePlayer( int _TeamId, int _PositionId, Player _Player )
+        public bool CreatePlayer( int _TeamId, Player _Player )
         {
             var team = DataContext.Teams.Where( t => t.Id == _TeamId ).FirstOrDefault( );
-            if( team == null ) 
+            if( team == null )
             {
                 throw new InvalidOperationException( $"Team not found" );
             }
 
             _Player.Team = team;
-
-            var position = DataContext.Positions.Where( p => p.Id == _PositionId ).FirstOrDefault();
-            if( position == null )
-            {
-                throw new InvalidOperationException( $"Position not found" );
-            }
-
-            var playerPosition = new PlayerPosition( )
-            {
-                Player = _Player,
-                Position = position
-            };
-
-            DataContext.Add( playerPosition );
 
             DataContext.Add( _Player );
             return Save( );

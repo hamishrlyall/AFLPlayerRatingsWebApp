@@ -6,6 +6,7 @@ namespace AFLPlayerRatingsWebApi.Interfaces
     {
         ICollection<Team> GetTeams( );
         Team GetTeam( int _Id );
+        ICollection<Team> GetTeamsBySearchValue( string _SearchValue );
         ICollection<Player> GetPlayersFromATeam( int _TeamId );
         bool TeamExists( int _TeamId );
         bool CreateTeam( Team _Team );

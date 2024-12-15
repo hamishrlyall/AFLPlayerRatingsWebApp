@@ -34,6 +34,11 @@ namespace AFLPlayerRatingsWebApi.Repository
             return position;
         }
 
+        public ICollection<Position> GetPositionsBySearchValue( string _SearchValue )
+        {
+            return DataContext.Positions.Where( x => x.Name.Contains( _SearchValue ) ).ToList( );
+        }
+
         public ICollection<Player> GetPlayersByPosition( int _PositionId )
         {
             return DataContext.PlayerPositions.Where( pp => pp.PositionId == _PositionId ).Select( pos => pos.Player ).ToList( );
