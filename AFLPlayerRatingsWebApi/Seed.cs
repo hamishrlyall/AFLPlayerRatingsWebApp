@@ -1,250 +1,228 @@
-﻿//using AFLPlayerRatingsWebApi.Data;
-//using AFLPlayerRatingsWebApi.Models;
-//using System.Net;
+﻿using AFLPlayerRatingsWebApi.Data;
+using AFLPlayerRatingsWebApi.Models;
+using System.Net;
 
-//namespace AFLPlayerRatingsWebApi
-//{
-//    public class Seed
-//    {
-//        private readonly DataContext DbContext;
+namespace AFLPlayerRatingsWebApi
+{
+    public class Seed
+    {
+        private readonly DataContext DbContext;
 
-//        public Seed( DataContext _Context )
-//        {
-//            DbContext = _Context;
-//        }
+        public Seed( DataContext _Context )
+        {
+            DbContext = _Context;
+        }
 
-//        public void SeedDataContext( )
-//        {
-//            var reviewers = new List<Reviewer>( );
+        public void SeedDataContext( )
+        {
+            var teams = new List<Team>( );
+            if( !DbContext.Teams.Any( ) )
+            {
+                var geelong = new Team( ) { Name = "Geelong Cats", HomeGround = "GMHBA Stadium", Players = new List<Player>( ) };
+                teams.Add( geelong );
+                var melbourne = new Team( ) { Name = "Melbourne Demons", HomeGround = "MCG", Players = new List<Player>( ) };
+                teams.Add( melbourne );
+                var collingwood = new Team( ) { Name = "Collingwood Magpies", HomeGround = "MCG", Players = new List<Player>( ) };
+                teams.Add( collingwood );
+                var bulldogs = new Team( ) { Name = "Western Bulldogs", HomeGround = "Marvel Stadium", Players = new List<Player>( ) };
+                teams.Add( bulldogs );
 
-//            var lingy = new Reviewer( ) { FirstName = "Cameron", LastName = "Ling" };
-//            reviewers.Add( lingy );
+                var lingy = new Reviewer( ) { FirstName = "Cameron", LastName = "Ling", Reviews = new List<Review>() };
+                var cornes = new Reviewer( ) { FirstName = "Kane", LastName = "Cornes", Reviews = new List<Review>( ) };
+                var whateley = new Reviewer( ) { FirstName = "Gerard", LastName = "Whateley", Reviews = new List<Review>( ) };
+                var garry = new Reviewer( ) { FirstName = "Garry", LastName = "Lyon", Reviews = new List<Review>( ) };
+                var baileySmith = new Reviewer( ) { FirstName = "Bailey", LastName = "Smith", Reviews = new List<Review>( ) };
+                var me = new Reviewer( ) { FirstName = "Hamish", LastName = "Lyall", Reviews = new List<Review>( ) };
+                var kingy = new Reviewer( ) { FirstName = "David", LastName = "King", Reviews = new List<Review>( ) };
+                var eddie = new Reviewer( ) { FirstName = "Eddie", LastName = "McGuire", Reviews = new List<Review>( ) };
 
-//            var cornes = new Reviewer( ) { FirstName = "Kane", LastName = "Cornes" };
-//            reviewers.Add( cornes );
+                var midfielder = new Position( ) { Name = "Midfielder" };
+                var forward = new Position( ) { Name = "Forward" };
+                var defender = new Position( ) { Name = "Defender" };
+                var ruckman = new Position( ) { Name = "Ruckman" };
 
-//            var whateley = new Reviewer( ) { FirstName = "Gerard", LastName = "Whateley" };
-//            reviewers.Add( whateley );
+                var dangerfield = new Player( )
+                {
+                    Name = "Patrick Dangerfield",
+                    BirthDate = new DateTime( 1990, 4, 5 ),
+                    Team = geelong,
+                    Reviews = new List<Review>( ),
+                    PlayerPositions = new List<PlayerPosition>( )
+                };
+                geelong.Players.Add( dangerfield );
 
-//            var garry = new Reviewer( ) { FirstName = "Garry", LastName = "Lyon" };
-//            reviewers.Add( garry );
+                var kozzy = new Player( )
+                {
+                    Name = "Kysiah Pickett",
+                    BirthDate = new DateTime( 2001, 6, 2 ),
+                    Team = melbourne,
+                    Reviews = new List<Review>( ),
+                    PlayerPositions = new List<PlayerPosition>( )
+                };
+                melbourne.Players.Add( kozzy );
 
-//            var baileySmith = new Reviewer( ) { FirstName = "Bailey", LastName = "Smith" };
-//            reviewers.Add( baileySmith );
+                var moore = new Player( )
+                {
+                    Name = "Darcy Moore",
+                    BirthDate = new DateTime( 1996, 1, 25 ),
+                    Team = collingwood,
+                    Reviews = new List<Review>( ),
+                    PlayerPositions = new List<PlayerPosition>( )
+                };
+                collingwood.Players.Add( moore );
 
-//            var me = new Reviewer( ) { FirstName = "Hamish", LastName = "Lyall" };
-//            reviewers.Add( me );
-
-//            var kingy = new Reviewer( ) { FirstName = "David", LastName = "King" };
-//            reviewers.Add( kingy );
-
-//            if( !DbContext.Reviewers.Any() )
-//            {
-//                DbContext.Reviewers.AddRange( reviewers );
-//            }
-
-
-//            var teams = new List<Team>( );
-//            var geelong = new Team( ) { Name = "Geelong Cats", HomeGround = "GMHBA Stadium" };
-//            teams.Add( geelong );
-
-//            var melbourne = new Team( ) { Name = "Melbourne Demons", HomeGround = "MCG" };
-//            teams.Add( melbourne );
-
-//            var collingwood = new Team( ) { Name = "Collingwood Magpies", HomeGround = "MCG" };
-//            teams.Add( collingwood );
-
-//            var bulldogs = new Team( ) { Name = "Western Bulldogs", HomeGround = "Marvel Stadium" };
-//            teams.Add( bulldogs );
-
-
-//            if( !DbContext.Teams.Any( ) )
-//            {
-//                DbContext.Teams.AddRange( teams );
+                var english = new Player( )
+                {
+                    Name = "Tim English",
+                    BirthDate = new DateTime( 2001, 6, 2 ),
+                    Team = bulldogs,
+                    Reviews = new List<Review>( ),
+                    PlayerPositions = new List<PlayerPosition>( )
+                };
+                bulldogs.Players.Add( english );
 
 
-//                //                var teams = new List<Team>( )
-//                //                {
-//                //                    new Team( )
-//                //                    {
-//                //                        Name = "Geelong Cats",
-//                //                        HomeGround = "GMHBA Stadium",
-//                //                        Players = new List<Player>
-//                //                        {
-//                //,
-//                //                        }
-//                //                    },
-//                //                    new Team( )
-//                //                    {
-//                //                        Name = "Melbourne Demons",
-//                //                        HomeGround = "MCG",
-//                //                        Players = new List<Player>
-//                //                        {
-//                //                            new Player( )
-//                //                            {
-//                //                                Name = "Kysiah Pickett",
-//                //                                BirthDate = new DateTime(2001, 6, 2 ),
-//                //                                PlayerPositions = new List<PlayerPosition>( )
-//                //                                {
-//                //                                    new PlayerPosition { Position = new Position( ) {Name = "Forward"}}
-//                //                                },
-//                //                                Reviews = new List<Review>( )
-//                //                                {
-//                //                                    new Review { Title="Kysiah Pickett", Text="Kysiah Pickett is the next Jeff Farmer.", Rating = 5,
-//                //                                    Reviewer = garry },
-//                //                                    new Review { Title="Kysiah Pickett", Text="Kysiah Pickett is a thug.", Rating = 3,
-//                //                                    Reviewer = baileySmith },
-//                //                                    new Review { Title="Kysiah Pickett", Text="Kysiah Pickett is a gun!", Rating = 4,
-//                //                                    Reviewer = me },
-//                //                                    new Review { Title="Kysiah Pickett", Text="Kysiah Pickett is overrated.", Rating = 1,
-//                //                                    Reviewer = cornes },
-//                //                                }
-//                //                            }
-//                //                        }
-//                //                    },
-//                //                    new Team( )
-//                //                    {
-//                //                        Name = "Collingwood Magpies",
-//                //                        HomeGround = "MCG",
-//                //                        Players = new List<Player>
-//                //                        {
-//                //                            new Player( )
-//                //                            {
-//                //                                Name = "Darcy Moore",
-//                //                                BirthDate = new DateTime(1996, 1, 25 ),
-//                //                                PlayerPositions = new List<PlayerPosition>( )
-//                //                                {
-//                //                                    new PlayerPosition { Position = new Position( ) {Name = "Defender"}}
-//                //                                },
-//                //                                Reviews = new List<Review>( )
-//                //                                {
-//                //                                    new Review { Title="Darcy Moore", Text="Darcy Moore is the greatest captain ever.", Rating = 5,
-//                //                                    Reviewer = new Reviewer() { FirstName = "Eddie", LastName = "McGuire" } },
-//                //                                    new Review { Title="Darcy Moore", Text="Darcy Moore is overrated.", Rating = 1,
-//                //                                    Reviewer = new Reviewer(){ FirstName = "Kane", LastName = "Cornes"} },
-//                //                                }
-//                //                            }
-//                //                        }
-//                //                    },
-//                //                    new Team( )
-//                //                    {
-//                //                        Name = "Western Bulldogs",
-//                //                        HomeGround = "Marvel Stadium",
-//                //                        Players = new List<Player>
-//                //                        {
-//                //                            new Player( )
-//                //                            {
-//                //                                Name = "Tim English",
-//                //                                BirthDate = new DateTime(2001, 6, 2 ),
-//                //                                PlayerPositions = new List<PlayerPosition>( )
-//                //                                {
-//                //                                    new PlayerPosition { Position = new Position( ) {Name = "Ruckman"}}
-//                //                                },
-//                //                                Reviews = new List<Review>( )
-//                //                                {
-//                //                                    new Review { Title="Tim English", Text="Tim English is a good ruckman.", Rating = 4,
-//                //                                    Reviewer = kingy },
-//                //                                    new Review { Title="Tim English", Text="Tim English is overrated.", Rating = 1,
-//                //                                    Reviewer = cornes },
-//                //                                }
-//                //                            }
-//                //                        }
-//                //                    },
-//                //                };
-//                //                DbContext.Teams.AddRange( teams );
+                var reviews = new List<Review>( );
+                var dangerfieldReview1 = new Review( )
+                {
+                    Title = "Patrick Dangerfield",
+                    Text = "Patrick Dangerfield is one of the modern day greats.",
+                    Rating = 5,
+                    Reviewer = lingy,
+                    Player = dangerfield
+                };
+                dangerfield.Reviews.Add( dangerfieldReview1 );
 
-//                //            }
-//            }
-//            var players = new List<Player>( );
+                var dangerfieldReview2 = new Review
+                {
+                    Title = "Patrick Dangerfield",
+                    Text = "Patrick Dangerfield is overrated.",
+                    Rating = 2,
+                    Reviewer = cornes,
+                    Player = dangerfield
+                };
+                dangerfield.Reviews.Add( dangerfieldReview2 );
 
-//            var dangerfield = new Player( )
-//            {
-//                Name = "Patrick Dangerfield",
-//                BirthDate = new DateTime( 1990, 4, 5 ),
-//                Team = geelong,
-//                PlayerPositions = new List<PlayerPosition>( )
-//                {
-//                    new PlayerPosition( ) { Position = new Position() { Name = "Midfielder" }  }
-//                },
-//                Reviews = new List<Review>( )
-//                {
-//                    new Review { Title="Patrick Dangerfield", Text="Patrick Dangerfield is one of the modern day greats.", Rating = 5,
-//                    Reviewer = lingy },
-//                    new Review { Title="Patrick Dangerfield", Text="Patrick Dangerfield is overrated.", Rating = 2,
-//                    Reviewer =  cornes },
-//                    new Review { Title="Patrick Dangerfield", Text="Patrick Dangerfield is almost as good as Gryan Miers.", Rating = 4,
-//                    Reviewer = whateley }
-//                }
-//            };
-//            players.Add( dangerfield );
+                var dangerfieldReview3 = new Review( )
+                {
+                    Title = "Patrick Dangerfield",
+                    Text = "Patrick Dangerfield is almost as good as Gryan Miers.",
+                    Rating = 4,
+                    Reviewer = whateley,
+                    Player = dangerfield
+                };
+                dangerfield.Reviews.Add( dangerfieldReview3 );
 
-//            var kozzy = new Player( )
-//            {
-//                Name = "Kysiah Pickett",
-//                BirthDate = new DateTime( 2001, 6, 2 ),
-//                Team = melbourne,
-//                PlayerPositions = new List<PlayerPosition>( )
-//                                {
-//                                    new PlayerPosition { Position = new Position( ) {Name = "Forward"}}
-//                                },
-//                Reviews = new List<Review>( )
-//                {
-//                    new Review { Title="Kysiah Pickett", Text="Kysiah Pickett is the next Jeff Farmer.", Rating = 5,
-//                    Reviewer = garry },
-//                    new Review { Title="Kysiah Pickett", Text="Kysiah Pickett is a thug.", Rating = 3,
-//                    Reviewer = baileySmith },
-//                    new Review { Title="Kysiah Pickett", Text="Kysiah Pickett is a gun!", Rating = 4,
-//                    Reviewer = me },
-//                    new Review { Title="Kysiah Pickett", Text="Kysiah Pickett is overrated.", Rating = 1,
-//                    Reviewer = cornes },
-//                }
-//            };
-//            players.Add( kozzy );
+                var kozzyReview1 = new Review
+                {
+                    Title = "Kysiah Pickett",
+                    Text = "Kysiah Pickett is the next Jeff Farmer.",
+                    Rating = 5,
+                    Reviewer = garry,
+                    Player = kozzy
+                };
+                kozzy.Reviews.Add( kozzyReview1 );
 
-//            var moore = new Player( )
-//            {
-//                Name = "Darcy Moore",
-//                BirthDate = new DateTime( 1996, 1, 25 ),
-//                Team = collingwood,
-//                PlayerPositions = new List<PlayerPosition>( )
-//                {
-//                    new PlayerPosition { Position = new Position( ) {Name = "Defender"}}
-//                },
-//                Reviews = new List<Review>( )
-//                {
-//                    new Review { Title="Darcy Moore", Text="Darcy Moore is the greatest captain ever.", Rating = 5,
-//                    Reviewer = new Reviewer() { FirstName = "Eddie", LastName = "McGuire" } },
-//                    new Review { Title="Darcy Moore", Text="Darcy Moore is overrated.", Rating = 1,
-//                    Reviewer = new Reviewer(){ FirstName = "Kane", LastName = "Cornes"} },
-//                }
-//            };
-//            players.Add( moore );
+                var kozzyReview2 = new Review
+                {
+                    Title = "Kysiah Pickett",
+                    Text = "Kysiah Pickett is a thug.",
+                    Rating = 3,
+                    Reviewer = baileySmith,
+                    Player = kozzy
+                };
+                kozzy.Reviews.Add( kozzyReview2 );
 
-//            var english = new Player( )
-//            {
-//                Name = "Tim English",
-//                BirthDate = new DateTime( 2001, 6, 2 ),
-//                Team = bulldogs,
-//                PlayerPositions = new List<PlayerPosition>( )
-//                {
-//                    new PlayerPosition { Position = new Position( ) {Name = "Ruckman"}}
-//                },
-//                Reviews = new List<Review>( )
-//                {
-//                    new Review { Title="Tim English", Text="Tim English is a good ruckman.", Rating = 4,
-//                    Reviewer = kingy },
-//                    new Review { Title="Tim English", Text="Tim English is overrated.", Rating = 1,
-//                    Reviewer = cornes },
-//                }
-//            };
-//            players.Add( english);
+                var kozzyReview3 = new Review
+                {
+                    Title = "Kysiah Pickett",
+                    Text = "Kysiah Pickett is a gun!",
+                    Rating = 4,
+                    Reviewer = me,
+                    Player = kozzy
+                };
+                kozzy.Reviews.Add( kozzyReview3 );
 
-//            if( !DbContext.Players.Any() )
-//            {
-//                DbContext.Players.AddRange( players );
-//            }
+                var kozzyReview4 = new Review( ) {
+                    Title = "Kysiah Pickett",
+                    Text = "Kysiah Pickett is overrated.",
+                    Rating = 1,
+                    Reviewer = cornes,
+                    Player = kozzy
+                };
+                kozzy.Reviews.Add( kozzyReview4 );
 
-//            DbContext.SaveChanges( );
-//        }
-//    }
-//}
+                var mooreReview1 = new Review( )
+                {
+                    Title = "Darcy Moore",
+                    Text = "Darcy Moore is the greatest captain ever.",
+                    Rating = 5,
+                    Reviewer = eddie,
+                    Player = moore
+                };
+                moore.Reviews.Add( mooreReview1 );
+
+                var mooreReview2 = new Review( )
+                { 
+                    Title = "Darcy Moore", 
+                    Text = "Darcy Moore is overrated.", 
+                    Rating = 1, 
+                    Reviewer = cornes,
+                    Player = moore
+                };
+                moore.Reviews.Add( mooreReview2 );
+
+                var englishReview1 = new Review( )
+                {
+                    Title = "Tim English",
+                    Text = "Tim English is a good ruckman.",
+                    Rating = 4,
+                    Reviewer = kingy,
+                    Player = english
+                };
+                english.Reviews.Add( englishReview1 );
+
+                var englishReview2 = new Review( )
+                {
+                    Title = "Tim English",
+                    Text = "Tim English is overrated.",
+                    Rating = 1,
+                    Reviewer = cornes,
+                    Player= english
+                };
+                english.Reviews.Add( englishReview2 );
+
+                var dangerMid = new PlayerPosition( )
+                {
+                    Player = dangerfield,
+                    Position = midfielder
+                };
+                dangerfield.PlayerPositions.Add( dangerMid );
+
+                var kozzyForward = new PlayerPosition( )
+                {
+                    Player = kozzy,
+                    Position = forward
+                };
+                kozzy.PlayerPositions.Add( kozzyForward );
+
+                var mooreDefender = new PlayerPosition( )
+                {
+                    Player = moore,
+                    Position = defender
+                };
+                moore.PlayerPositions.Add( mooreDefender );
+
+                var englishRuck = new PlayerPosition( )
+                {
+                    Player = english,
+                    Position = ruckman
+                };
+                english.PlayerPositions.Add( englishRuck );
+
+                DbContext.Teams.AddRange( teams );
+                DbContext.SaveChanges( );
+            }
+        }
+    }
+}

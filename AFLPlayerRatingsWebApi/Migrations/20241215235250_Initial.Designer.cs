@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AFLPlayerRatingsWebApi.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20241215094122_Initial")]
+    [Migration("20241215235250_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
